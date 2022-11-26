@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <div class="container">
+        <p id="p1">P1 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi? </p>
+        <p id="p2">P2 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci
+            exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi?
+        </p>
+        <p id="p3">P3 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci
+            exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi?
+        </p>
+        <p id="p4">P4 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci
+            exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi?
+        </p>
+        <p id="p5">P5 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci
+            exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi?
+        </p>
+        <p id="p6">P6 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minima quos vitae sit, ut ex, adipisci
+            exercitationem, odio aliquam et possimus cum! Nihil recusandae quidem praesentium quos perspiciatis beatae at nisi?
+        </p>
+    </div>
+    <div id="horloge"></div>
+    <form action="">
+        <input id="email" type="email" value="">
+        <input id="password" type="password" value="">
+        <input id="button" type="button" value="envoyer" disabled>
+    </form>
+    <script>
+    /*
+    Exercice 3.1 :
+    A partir de l'exercice 2.13, commencer le texte de chaque paragraphe par un numéro (c'est juste pour se repérer), à
+    présent, le paragraphe 1 : p1, doit se situer après p3, p4 doit se situer avant p2, p5 dans p6 mais au début
+    */
+    /*
+    let container = document.querySelector('.container')
+    let p1 = document.querySelector('#p1')
+    let p4 = document.querySelector('#p4')
+    let p2 = document.querySelector('#p2')
+    let p5 = document.querySelector('#p5')
+    let p5Clone = p5.cloneNode(true);
+    let p6 = document.querySelector('#p6')
+
+
+    container.insertBefore(p1,p4)
+    container.insertBefore(p4, p2)
+    p6.insertAdjacentElement('afterBegin', p5Clone)
+    container.removeChild(p5) 
+        */
+    
+    
+    /*Exercice 3.2 :
+    A partir d'une page html vierge, générer dynamiquement le code suivant :
+    <div class='main'>
+        <ul class='liste'>
+            <li><a href='lien1.php' class='lien'>page 1</a></li>
+            <li><a href='lien2.php' class='lien'>page 2</a></li>
+        </ul>
+    </div>
+    */
+    /*
+    let container = document.querySelector('.container');
+    let node = document.createElement('div')
+    const INSERT = "<ul class='liste'>\n<li><a href='lien1.php' class='lien'>page 1</a></li>\n <li><a href='lien2.php' class='lien'>page 2</a></li>\n</ul>\n ";
+    node.innerHTML = INSERT
+    container.append(node);
+    let div = document.querySelector('div.container > div')
+    div.classList.add('main')
+    */
+    /*Exercice 3.3 :
+    OTP -> Voir OTP
+    
+    A partir de ce que vous avez intégré en html, ajoutez le code qui permet :
+    - de vérifier que la saisie est bien un nombre
+    - de passer à la case suivante
+    - d'envoyer le code une fois que toutes les cases sont remplies, l'envoie à ce stade se fera par un alert()
+    */
+
+    /*Exercice 3.4 :
+    Documentez-vous sur l'objet Date()
+    Développez une horloge numérique
+    */
+    /*
+    let horloge = document.querySelector('#horloge');
+    let date;
+    let interval = setInterval(() =>  {
+        date = new Date();
+        hour = date.getHours();
+        minute = date.getMinutes();
+        seconde = date.getSeconds();
+        
+        horloge.innerHTML = (hour < 10 ? '0' : '') + hour + ':' + (minute < 10 ? '0' : '') + minute + ':' + (seconde < 10 ? '0' : '') + seconde; 
+    }, 1000)
+    */
+    
+    
+    /*Exercice 3.6 :
+    Ecrivez un simple formulaire html, seulement 2 champs : email et password, et un bouton submit.
+    Le bouton submit est désactivé tant que les 2 champs sont vides et qu'ils ne respectent pas les règles suivantes :
+    - un email doit être un email (n caractères suivi de @ suivi de n caractères suivi de . suivi de n caractères),
+    - un password fait au minimum 8 caractères.
+    
+    Vous n'avez pas le droit d'utiliser l'attribut required et type='email'
+    Concernant l'expression de contrôle pour l'email, consulter cette page
+    https://www.w3resource.com/javascript/form/email-validation.php
+    */
+    
+    //let formSubmit = document.querySelector('#form').addEventListener('submit', sendForm) ;
+    document.querySelector('#email').addEventListener('input', handleEmail)
+    document.querySelector('#password').addEventListener('input', handlePassword)
+    let button = document.querySelector('#button')
+    let validEmail = false;
+    let validPassword = false;
+
+    function handleEmail() {
+        validEmail = false;
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.querySelector('#email').value)) {
+            validEmail = true;
+        }
+        validSubmit()
+    }
+
+    function handlePassword() {
+        validPassword = false;
+        if (document.querySelector('#password').value.length>=8) {
+            validPassword = true;
+        }
+        validSubmit()
+    }
+
+    function validSubmit () {
+        
+        if (validEmail && validPassword) {
+            button.removeAttribute('disabled');
+        } else {
+            button.setAttribute('disabled', true)
+        }
+    }
+
+        
+    </script>
+</body>
+</html>

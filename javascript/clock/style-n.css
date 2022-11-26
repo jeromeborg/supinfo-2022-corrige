@@ -1,0 +1,33 @@
+/* Layout */
+body {
+    background-color: #FFF;
+    font-family: 'VT323', monospace;
+}
+.main {
+    display: flex;
+    padding: 2em;
+    height: 90vh;
+    justify-content: center;
+    align-items: middle;
+}
+
+.clockbox {
+    display: flex;
+    align-items: baseline;
+}
+.clockbox .digit {
+    background-color: #000;
+    color:#fff;
+    font-size:10rem;
+    padding:10px;
+    
+}
+.clockbox .separator {
+    margin:5px;
+    font-size:10rem;
+}
+.clockbox,
+#clock {
+    width: 100%;
+}
+

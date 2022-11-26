@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <form>
+        <div style="display:flex">
+            <div><input type="text" name="number1" value=""></div>
+            <div><input type="text" name="number2" value=""></div>
+        </div>
+        <div style="padding-top:20px">
+            <input type="button" name="sum" value="sum" onclick="setData(this)">&nbsp;
+            <input type="button" name="sub" value="sub" onclick="setData(this)">&nbsp;
+            <input type="button" name="mult" value="mult" onclick="setData(this)">&nbsp;
+            <input type="button" name="div" value="div" onclick="setData(this)">&nbsp;
+            <input type="button" name="modulo" value="modulo" onclick="setData(this)">&nbsp;
+        </div>
+    </form>
+    <div style="display:flex">
+        <h2 style="width:300px;">Historique</h2>
+        <h2 style="width:300px;">Résultat</h2>
+    </div>
+    <div style="display:flex">
+        <div style="width:300px;" id="historique"></div>
+        <div style="width:300px;" id="resultat"></div>
+    </div>
+   
+    <script>
+        /*Exercice 2.8 :
+        Créer une nouvelle page Web avec une zone permettant d’effectuer des calculs (SUM,
+SUB, MULT, DIV, MODULO) :*/
+        let histo = ''
+        let resultat = document.getElementById('resultat')
+        let historique = document.getElementById('historique')
+
+        function setData(button) {
+            console.log(button.attributes['name'].value)
+            let result = 0;
+            let number1 = parseInt(document.getElementsByName('number1')[0].value)
+            let number2 = parseInt(document.getElementsByName('number2')[0].value)
+            let operator = button.attributes['name'].value
+            setHisto(number1, number2, operator)
+            switch (operator) {
+                case 'sum':
+                    result = number1 + number2;
+                    break;
+                case 'sub':
+                    result = number1 - number2;
+                    break;
+                case 'mult':
+                    result = number1 * number2;
+                    break;
+                case 'div':
+                    result = number1 / number2;
+                    break;    
+                case 'modulo':
+                    result = number1 % number2;
+                    break;
+                default: 
+
+            }
+            afficheResultat(result);
+            afficheHistorique(histo)
+        }
+
+        function setHisto(number1, number2,operator) {
+            histo = number1 + ' ' + operator + ' ' + number2 + '<br>'
+        }
+
+        function afficheResultat(result) {
+            resultat.innerHTML = result;
+        }
+
+        function afficheHistorique(histo) {
+            historique.innerHTML += histo
+
+        }
+
+        /*Exercice 2.9 :
+        Faire apparaitre l’historique des calculs dans une zone et faire apparaitre le résultat des
+calculs dans une autre zone de la page WEB*/
+
+
+        
+    </script>
+</body>
+</html>

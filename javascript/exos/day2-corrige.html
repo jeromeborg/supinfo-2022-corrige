@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .link {
+            color:red;
+        }
+        .active {
+            color:green;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="#id1" onclick="encre(this)" class="link">Lien 1</a></li>
+        <li><a href="#id2" onclick="encre(this)" class="link">Lien 2</a></li>
+        <li><a href="#id3" onclick="encre(this)" class="link">Lien 3</a></li>
+    </ul>
+    <p onmouseover="color()">Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quo provident distinctio culpa iste quod, neque itaque at et incidunt inventore, doloribus aliquam exercitationem quisquam ipsum cumque tempora deserunt. Tenetur.</p>
+
+    <section section class='section'>
+        <div class='left'>
+            <div class='bande'>btn a1</div>
+            <div class='bande'>btn a2</div>
+            <div class='bande'>btn a3</div>
+        </div>
+        <div class='right'>
+            <div class='aside'>btn b1</div>
+        </div>
+    </section>
+    <script>
+        /*Exercice 2.1 :
+        Créer une fonction cube(), cette fonction prend en paramêtre une variable et renvoie le cube de cette variable. Implémenter la fonction, faites un appel, avec 3, 5, -7 et afficher les résultats dans la       console*/
+
+        /*
+        function cube(value) {
+            return value**3;
+        }
+
+        console.log(cube(3));
+        console.log(cube(5));
+        console.log(cube(-7));
+        */
+
+        /*Exercice 2.2 :
+        Créer une fonction strToBold(), cette fonction prend en paramètre une variable et renvoie cette variable avec le code html pour mettre en gras. Implémenter la fonction, faites un appel, avec Hello World et afficher le résultat dans la  console*/
+        /*
+        function strToBold(text) {
+            return '<strong>'+text+'</strong>';
+        }
+
+        console.log(strToBold('toto'));
+        document.querySelector('body').innerHTML = strToBold('toto')
+        */
+
+        /*Exercice 2.3 :
+        Créer une fonction average(), cette fonction prend en paramètre un tableau avec des    valeurs numériques et renvoie la moyenne des valeurs de ce tableau. Implémenter la fonction, faites un appel, avec un tableau de valeurs numériques et afficher  le résultat dans la console*/
+
+        /*
+        function average(array) {
+            return array.reduce( (total, item) => total + item, 0) / array.length;
+        }
+        console.log(average([1, 2, 3, 4]))
+        */
+
+        /*Exercice 2.4 :
+        Créer une fonction convertDate(), cette fontion prend en paramètre une date au format                     jj/mm/yyyy hh:mm, et un autre paramêtre de type boolean, permettant de choisir si le                     retour, sera seulement la date ou la date et l'heure Si c'est seulement la date, le retour sera au format yyyy-mm-dd
+        Si c'est seulement la date et l'heure, le retour sera au format yyyy - mm - ddThh: mm         Implémenter la fonction, faites un appel, avec les deux cas et afficher les résultats dans         la console*/
+
+        /*function convertDate(date_in, time) {
+            let decoupe = date_in.split(' ');
+            let heure = decoupe[1];
+            let date = decoupe[0].split('/');
+            
+            return date[2]+'-'+date[1]+'-'+date[0] + (time ? 'T'+heure : '')
+        }
+
+        console.log(convertDate('01/01/2022 22:01', true))
+        console.log(convertDate('01/01/2022 22:01', false))
+        */
+        /*Exercice 2.5 :
+        A partir du tableau de l'exercice 1.25, affichez les prénoms et calculez la somme total des
+ages dans le même bloc d'instruction et affichez la
+        let users = [
+{ name: 'borg', firstname:'jerome', age: 49},
+{ name: 'marcial', firstname: 'paul', age: 19 },
+{ name: 'truchi', firstname: 'pierre', age: 20 },
+{ name: 'golmich', firstname: 'jacques', age: 50 },
+{ name: 'heros', firstname: 'patricia', age: 12 },
+{ name: 'patou', firstname: 'sylvie', age: 30 },
+];
+        */
+        /*
+        let users = [
+                { name: 'borg', firstname: 'jerome', age: 49 },
+                { name: 'marcial', firstname: 'paul', age: 19 },
+                { name: 'truchi', firstname: 'pierre', age: 20 },
+                { name: 'golmich', firstname: 'jacques', age: 50 },
+                { name: 'heros', firstname: 'patricia', age: 12 },
+                { name: 'patou', firstname: 'sylvie', age: 30 },
+            ];
+            let ages = 0;
+            users.forEach(  function(user) {
+                console.log(user.firstname)
+                ages += user.age
+            });
+            console.log(ages)
+*/
+       /* Exercice 2.11 : Faire une page HTML contenant un texte.Au passage de la souris sur le
+            texte, les mots changent de couleur.L'action est faite en javascript.*/
+            /*
+            function color() {
+                let p = document.querySelector('p')
+                p.style.color = 'red';
+            }*/
+        /*Exercice 2.14 :
+        Dans une page html, créer 3 liens html, ce seront 3 liens qui renvoient vers des sections
+        de la page(encres nommés).Lorsque que l'on clique sur 1 lien, sa forme change, cela
+        permet de savoir sur quelle section nous sommes.
+        Ecrivez le code qui permet de mettre en avant le lien sélectionné, et bien sûr de remettre
+        à son état originel, l'ancien lien cliqué    */
+        /*
+        function encre(element) {
+            console.log(element)
+            links = document.querySelectorAll('a');
+            links.forEach(item => item.classList.remove('active'));
+            element.classList.add('active')
+        }
+        */
+
+        /*Exercice 2.15 :
+        A partir de la structure suivante, lister récursivement tous les éléments du bloc 'section';
+                    13
+                        <section section class='section'>
+        <div class='left'>
+        <div class='bande'>btn a1</div>
+        <div class='bande'>btn a2</div>
+        <div class='bande'>btn a3</div>
+        </div>
+                        <div class='right'>
+                            <div class='aside'>btn b1</div>
+        </div>
+        </section>*/
+
+        function list(element) {
+            // enfant
+            console.log(element.classList[0])
+            if (element.children.length>0) {
+                for (let i=0; i< element.children.length; i++) {
+                    list(element.children[i]);
+                }
+            }
+            return 'done'; 
+
+        }
+        let section = document.querySelector('section');
+        list(section)
+    </script>
+</body>
+</html>

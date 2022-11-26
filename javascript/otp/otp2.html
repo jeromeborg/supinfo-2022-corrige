@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="h-screen bg-blue-400 py-20 px-3 text-gray-700">
+        <div class="container mx-auto">
+            <div class="max-w-sm mx-auto md:max-w-lg">
+                <div class="w-full">
+                    <div class="bg-white h-64 py-3 rounded-lg text-center shadow-lg">
+                        <h1 class="text-2xl font-bold">Administration</h1>
+                        <div class="flex flex-col mt-4">
+                            <span>Enter the code you received at</span>
+                            <span class="font-bold">+33 ******537</span>
+                        </div>
+
+                        <div id="otp" class="flex flex-row justify-center text-center items-center px-2 mt-5">
+                            
+                            <input class="border-l border-t border-b h-12 w-8 text-center rounded-l-lg focus:outline-none focus:border-gray-500 focus:ring-gray-500"
+                                type="text" id="input1" maxlength="1" patern="\d{1}" inputmode="numeric" focus="true" autofocus />
+                            <input class="border h-12 w-8 text-center focus:outline-none focus:border-gray-500 focus:ring-gray-500" type="text"
+                                id="input2" maxlength="1" patern="\d{1}" inputmode="numeric" />
+                            <input class="border-r border-t border-b h-12 w-8 text-center rounded-r-lg focus:outline-none focus:border-gray-500 focus:ring-gray-500" type="text" id="input3"
+                                maxlength="1" patern="\d{1}" inputmode="numeric" />&nbsp;-&nbsp;
+                            <input class="border-l border-t border-b h-12 w-8 text-center rounded-l-lg focus:outline-none focus:border-gray-500 focus:ring-gray-500"
+                                type="text" id="input4" maxlength="1" patern="\d{1}" inputmode="numeric" />
+                            <input class="border h-12 w-8 text-center focus:outline-none focus:border-gray-500 focus:ring-gray-500" type="text"
+                                id="input5" maxlength="1" patern="\d{1}" inputmode="numeric" />
+                            <input class="border-r border-t border-b h-12 w-8 text-center rounded-r-lg focus:outline-none focus:border-gray-500 focus:ring-gray-500" type="text" id="input6"
+                                maxlength="1" patern="\d{1}" inputmode="numeric" />
+                            <input type="hidden" id="email" name="email" value="">
+                        </div>
+
+                        <!-- http response code ou error -->
+                        <div id="bloc-response" class="flex justify-center text-center mt-5 hidden">
+                            <div id="message"></div>
+                        </div>
+
+                        <div class="flex justify-center text-center mt-5">
+                            <a
+                                class="flex items-center cursor-pointer p-2 rounded bg-blue-500 text-white shadow hover:text-gray-100 hover:bg-blue-400 hover:shadow-inner transition duration-300" href="otp.html" title='Resend code'><span
+                                    class="font-bold">Resend Code</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const URL_CODE = 'https://www.jeromeb.ovh/otp/api/code.php' 
+        // const URL_CODE = 'http://supinfo.test/php/api/code.php'
+        
+        window.onload = function () {
+           
+            let email = sessionStorage.getItem('email')
+            if (email.length == 0) {
+                location = "otp.html";
+            } else {
+                document.querySelector('#email').value = email;
+            }
+
+            const inputs = document.querySelectorAll('#otp >  *[id]');
+            
+            let digits = ['', '', '', '', '', ''];
+            for (let i=0; i < 6; i++) {
+                inputs[i].addEventListener('keydown', function (event) {
+                    console.log('keyCode', event.keyCode);
+                    console.log('key', event.key);
+                    if (event.key === "Backspace") {
+                        inputs[i].value = '';
+                        if (i !== 0) inputs[i - 1].focus();
+                    } else {
+                         if ((event.keyCode >= 96 && event.keyCode <= 105) || (event.keyCode >= 48 && event.keyCode <= 57)) {
+                            digits[i] = inputs[i].value = event.key;
+
+                            if (i !== 5) {
+                                inputs[i + 1].focus();
+                            } else {
+                                sendData(digits.join(''))    
+                                console.log('fetch');
+                            }
+                            event.preventDefault();
+                        } 
+                    }
+                });
+            }
+
+            const sendData = async (code) => {
+                 const headers = {
+                    'Accept': 'application / json'
+                }
+                const formData = new FormData();
+                formData.append('email', document.getElementById('email').value);
+                formData.append('code', code);
+
+                const apiCall = await fetch(URL_CODE, {
+                    method: 'POST',
+                    headers: headers,
+                    body: formData
+                });
+                const content = await apiCall.json();
+                console.log(content)
+
+                let blocResponse = document.getElementById('bloc-response')
+                let message = document.getElementById('message')
+                blocResponse.classList.remove('hidden')
+
+                if (content.status === 200) {
+                    message.classList.remove('text-red-600')
+                    message.classList.add('text-lime-500')
+                    // message.innerHTML = content.message
+                    location = "otp3.html";
+                } else {
+                    message.classList.add('text-red-500')
+                    message.classList.remove('text-lime-600')
+                    message.innerHTML = content.message
+                }
+
+            }
+
+        }
+        
+    </script>
+</body>
+
+</html>

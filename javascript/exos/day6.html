@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <p>
+        A partir de cette api public, https://open-meteo.com/en/docs Recherchez les coordonnées Gps de l'école (Google Map)<br>
+        Testez le endpoint dans PostMan<br>
+        Récupérez via fetch, les températures (paramètres hourly=temperature_2m)<br>
+        Affichez sous forme de graphe, ces températures<br>
+        https://www.chartjs.org/docs/latest/<br>
+        ou<br>
+        https://morrisjs.github.io/morris.js/<br>
+    </p>
+    
+    <div>
+        <canvas id="graph"></canvas>
+    </div>
+</body>
+<script>
+    // https://api.open-meteo.com/v1/forecast?latitude=47.42&longitude=0.70&hourly=temperature_2m
+    // 47.42080326881083, 0.7052129808774644
+    /* "hourly": {
+            "time": [
+            ],
+            "temperature_2m": [
+            ],
+    */
+    
+    // fetch data
+    
+    const headers = {
+        'Accept': 'application/json'
+    }
+    const apiCall = fetch('https://api.open-meteo.com/v1/forecast?latitude=47.42&longitude=0.70&hourly=temperature_2m', {
+        method: 'GET',
+        headers: headers,
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(response.hourly);
+        graph(response.hourly)
+    })
+    .catch(error => console.error('fetch error'));
+
+    function graph(data) {
+        console.log(data);
+        const ctx = document.getElementById('graph');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: data.time,
+                datasets: [{
+                    label: 'Temperature',
+                    data: data.temperature_2m,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+</script>
+</html>

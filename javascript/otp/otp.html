@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="h-screen bg-blue-400 py-20 px-3 text-gray-700">
+        <div class="container mx-auto">
+            <div class="max-w-sm mx-auto md:max-w-lg">
+                <div class="w-full">
+                    <form id="formEmail" action="" method="post">
+                        <div class="bg-white h-64 py-3 rounded-lg text-center shadow-lg">
+                            <h1 class="text-2xl font-bold">Administration</h1>
+                            <div class="flex flex-col mt-4">
+                                <span>Enter your email</span>
+                            </div>
+
+                            <div class="flex flex-row justify-center text-center items-center px-2 mt-5">
+                                <input class="border h-12 text-center rounded-lg focus:outline-none focus:border-gray-500 focus:ring-gray-500 w-2/3"
+                                    type="text" name="email" id="email" value="" autofocus />
+                                
+
+                            </div>
+
+                            <!-- http response code ou error -->
+                            <div id="bloc-response" class="flex justify-center text-center mt-5 hidden">
+                                <div id="message"></div>
+                            </div>
+                            <!-- go otp -->
+                            <div id="bloc-code" class="flex justify-center text-center mt-5 hidden">
+                                <a class="flex items-center cursor-pointer p-2 rounded bg-blue-500 text-white shadow hover:text-gray-100 hover:bg-blue-400 hover:shadow-inner transition duration-300 disabled:bg-blue-400" title="Go Otp" href="otp2.html">
+                                    Go Otp</a>
+                            </div>
+
+                            <div id="bloc-sendemail" class="flex justify-center text-center mt-5">
+                                <button id="submitButton" type="submit" value="Go OTP" class="flex items-center cursor-pointer p-2 rounded bg-blue-500 text-white shadow hover:text-gray-100 hover:bg-blue-400 hover:shadow-inner transition duration-300 disabled:bg-blue-400" disabled>Send Email</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const URL_LOGIN = 'https://www.jeromeb.ovh/otp/api/login.php' 
+        // const URL_LOGIN = 'http://supinfo.test/php/api/login.php'
+        const email = document.querySelector('#email');
+        const emailEvent = email.addEventListener('keydown', verifyEmail)
+        const button = submitButton.querySelector('#submitButton')
+
+        const form = document.querySelector('#formEmail')
+        
+
+        const headers = {
+            'Accept': 'application/json'
+        }
+
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+
+            const form = e.currentTarget;
+
+            const apiCall = await fetch(URL_LOGIN, {
+                method: 'POST',
+                headers: headers,
+                body: new FormData(form)
+            });
+            const content = await apiCall.json();
+            console.log(content)
+
+            let blocResponse = document.getElementById('bloc-response')
+            let message = document.getElementById('message')
+            let blocCode = document.getElementById('bloc-code')
+            let blocSendemail = document.getElementById('bloc-sendemail')
+            
+            if (content.status === 200) {
+                blocCode.classList.remove('hidden')
+                blocResponse.classList.remove('hidden')
+                message.classList.remove('text-red-600')
+                message.classList.add('text-lime-500')
+                blocSendemail.classList.add('hidden')
+                message.innerHTML = content.message
+                sessionStorage.setItem('email', document.querySelector('#email').value);
+            } else {
+                blocCode.classList.add('hidden')
+                blocResponse.classList.remove('hidden')
+                message.classList.add('text-red-500')
+                message.classList.remove('text-lime-600')
+                message.innerHTML = content.message
+            }
+
+        }
+        const formEvent = form.addEventListener('submit', handleSubmit)
+
+        function verifyEmail(e) {
+            if (emailValid(email.value)) {
+                submitButton.removeAttribute('disabled')
+            } else {
+                submitButton.setAttribute('disabled', true)
+            }
+        } 
+
+        function emailValid(email) {
+            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+                return (true)
+            }
+            return (false)
+        }
+
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+      // Exercice 1.7 : Ecrivez le code qui permet de vérifier si un utilisateur est majeur ou pas
+        /*let age = 15;
+        if (age >= 18) {
+            console.log('Vous êtes majeur')
+        } else {
+            console.log('Vous êtes mineur')
+        }*/
+
+        // Exercice 1.8 : Ecrivez le code qui permet de vérifier si l’âge d’un utilisateur est situé entre 20 ans et 30 ans ou 40 ans et 50 ans
+        /*let age2 = 35
+        if ((age2>=20 && age2<=30) || (age2 >= 40 && age2 <= 50)) {
+            console.log('vous êtes dans la cible')
+        }*/
+
+        // Exercice 1.9 : Vous développez un jeu, votre personnage, peut réaliser différentes actions(marcher, courir, tomber, frapper, mourir), écrivez la structure de contrôle qui permettrait de gérer ces actions
+        /*let action = 'tomber'
+
+        switch(action) {
+            case 'marcher':
+                console.log('marche');
+                break;
+            //....
+            case 'tomber':
+                console.log('tomber');
+                break;
+            default:
+                console.log('non gérer')
+        }*/
+
+        /*Exercice 1.10 : Traduisez ces instructions en ternaire
+        let x = 3;
+        if (x % 2) {
+            alert(‘impair’);
+        } else {
+            alert(‘pair’);
+        }
+
+        if (x > 2 && x ** 2 < 5) {
+            alert(‘1ere tranche’)
+        }*/
+        /*
+        let x = 3;
+        x % 2 ? alert('impair') : alert('pair')
+           
+        x > 2 && x ** 2 < 5 ? '1ere tranche' : ''
+*/
+        /* Exercice 1.11 : A partir de l’exercice 1.6, cherchez une solution pour que le résultat soit bien 11
+        Consigne: le casting */
+        /*let x = 10;
+        x = parseInt(x) + 1;
+        console.log(x)*/
+
+
+        /*Exercice 1.12 : 
+        Ecrivez un tableau qui contient toutes les lettres de l’alphabet en minuscule.
+        Ecrivez une boucle qui va afficher tous les éléments de ce tableau 1 par 1 en MAJUSCULE
+        Proposez plusieurs solutions*/
+        /*
+        let alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','x','y','z']
+
+        for(let i=0; i<alphabet.length;i++) {
+            console.log(alphabet[i].toUpperCase())
+        }
+        let j=0;
+        console.log('2================')
+        do {
+            console.log(alphabet[j].toUpperCase())
+            j++
+        } while(j<alphabet.length)
+        console.log('3================')
+        alphabet.forEach(item => console.log(item.toUpperCase()))
+        */
+
+        /*Exercice 1.13 :
+        Affichez dans la console, la suite de nombre 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 de 10 à 0.*/
+        //for (let i=10; i>=0;i--) console.log(i);
+
+        /*Exercice 1.14 :
+        Chaque caractère a une valeur «ascii», étudiez la fonction charCodeAt()
+        A partir de votre prénom, écrivez une boucle qui va calculer la somme ascii des caractères composant votre prénom
+        Attention les majuscules et les minuscules n’ont pas la même valeur;*/
+        /*let prenom='Jerome'
+
+        let total = 0;
+        for (let i=0; i<prenom.length; i++) {
+            total += prenom[i].charCodeAt();
+        }
+        console.log(total);*/
+
+        /*Exercice 1.18 :
+        A partir de ce tableau, array = [1, 2, 3, -2, 4, 5, 6, - 2];
+        Ecrivez un code qui ne permet de garder que les nombres positifs, et calculez la moyenne de ces nombres positifs*/
+        /*
+        let array = [1, 2, 3, -2, 4, 5, 6, - 2];
+        let total = 0;
+        let positif = [];
+
+        for(let i = 0; i<array.length; i++) {
+            if (array[i]>0) {
+                positif.push(array[i])
+                total+= array[i]
+            }
+        }
+        console.log(array.toString())
+        console.log(positif.toString())
+        console.log(total)
+        */
+        /*
+        let array = [1, 2, 3, -2, 4, 5, 6, - 2];
+        let positif = [];
+
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] > 0) {
+                positif.push(array[i])
+            }
+        }
+        console.log(array.toString())
+        console.log(positif.toString())
+        console.log( positif.reduce((total, item) => total + item, 0)) 
+*/
+        /*Exercice 1.19 :
+        A partir de ce tableau, array = [4, 2, 3, 6, 7, 8, 9]
+        Ecrivez le code qui permet de le transformer en ce tableau, array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        Vous n’avez pas de droit de créer un nouveau tableau*/
+
+        let array = [4, 2, 3, 6, 7, 8, 9]
+        console.log(array.toString())
+        // ajoute 0, 1, 5
+        array.push(0, 1, 5)
+        console.log(array.toString())
+        // tri
+        array.sort()
+        console.log(array.toString())
+
+
+        </script>  
+        
+</body>
+</html>
